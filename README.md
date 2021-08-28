@@ -77,3 +77,8 @@ func printState() {
     fmt.Println(printState())
 }
 ```
+8. there is 2 type of array in Go:
+    - Array: array with fixed length of list
+    - Slice: array that can dynamically added or removed at will, notes: slice must contain element with same data type
+9. `for i, card := range cards` the reason why we use `:=` it because `range cards` will always return 2 value. the first value is the index and the second value is copy of the element at that index
+10. 
