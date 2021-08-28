@@ -1,16 +1,12 @@
 package main
 
-import "fmt"
-
 func main() {
-	cards := []string{"Ace of Diamonds", newCard()}
+	cards := deck{"Ace of Diamonds", newCard()}
 	// add new element to array
 	cards = append(cards, "Six of Spades")
 
-	// iterate cards then print the index and element
-	for i, card := range cards {
-		fmt.Println(i, card)
-	}
+	// call receiver from type "deck"
+	cards.print()
 }
 
 func newCard() string {

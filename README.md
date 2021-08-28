@@ -1,25 +1,26 @@
 # medogo
 List of notes and code base on what I learn from udemy "Go: The Complete Developer's Guide (Golang)"
+
+Since I come from PHP world so some notes here will be using analogy from PHP ◔_◔
 ## Hello World
 1. install Golang: https://golang.org/doc/install
 2. setup local: https://golang.org/doc/install#install
 3. install VSCode: Need to install Go extension then to trigger install go analysis tool just create new file and set language to "Go" it will trigger VSCode to install the analysis tool
 4. create simple hello world
-Notes:
-- `go run main.go` it will compile and run the code
-- `go build main.go` it will just compile the code, it will generate executeable file from main.go
-- `package main` and `func main()` should have both in same file e.g. `main.go`
-- there is executeable package e.g. `package main` and re-useable package e.g. package that created by another dev
-- use `import fmt` is standard Go lib for "format", usually use for print text
-- go to https://pkg.go.dev/std for more info about Go standard packages
+5. `go run main.go` it will compile and run the code
+6. `go build main.go` it will just compile the code, it will generate executeable file from main.go
+7. `package main` and `func main()` should have both in same file e.g. `main.go`
+8. there is executeable package e.g. `package main` and re-useable package e.g. package that created by another dev
+9. use `import fmt` is standard Go lib for "format", usually use for print text
+10. go to https://pkg.go.dev/std for more info about Go standard packages
 
 ## Cards
-1. to declare variable we can use `var {variable name} {data type}`
+1. to declare variable we can use `var {variable name} {data type}` e.g. `var card string = "Five of Diamonds"`
 2. use `=` to assign value to variable
 3. use `:=` to declare and assign value to variable e.g `card := "Ace of Spades"`, Go can identify the variable data type base on assigned value
 4. It will throw error if use `:=` to the same variable that we already declare before
 5. we can initialize variable outside function but we cannot assign value to it e.g
-```
+```go
 // this is valid
 package main
 
@@ -47,13 +48,13 @@ func main() {
 
 ```
 6. other then `func main()` any other new function should return data type e.g.
-```
+```go
 func newCard() string {
     return "Five of Diamonds"
 }
 ```
 7. we can call all function in other go file as long as it using same package name e.g.
-```
+```go
 // main.go
 package main
 
@@ -81,4 +82,57 @@ func printState() {
     - Array: array with fixed length of list
     - Slice: array that can dynamically added or removed at will, notes: slice must contain element with same data type
 9. `for i, card := range cards` the reason why we use `:=` it because `range cards` will always return 2 value. the first value is the index and the second value is copy of the element at that index
-10. 
+10. we can define a "user-defined" types by extends exisitng types using `type` e.g.
+```go
+// main.go
+package main
+
+import "fmt"
+
+func main() {
+    // we declare and assign "cards" variable with type "deck" from deck.go
+    cards := deck{"Six of Spades", "Five of Diamonds"}
+    for i, card := range cards {
+        fmt.Println(i, card)
+    }
+}
+
+---
+
+// deck.go
+package main
+
+// we can assume `type` is like `class` in PHP (kinda ¯\_(ツ)_/¯)
+type deck []string
+```
+11. to run multiple go file, we can execute `go run {file1} {file2}` e.g. `go run main.go deck.go`
+12. we can create a "receiver" function when using`type` e.g.
+```go
+// deck.go
+package main
+
+import "fmt"
+
+type deck []string
+
+// `d` here can be assumed like `$this` in PHP, so this function here can be assumed simillar to instance method e.g. `$this->print()`
+func (d deck) print() {
+    for i, card := range d {
+        fmt.Println(i, card)
+    }
+}
+```
+13. when a variable assign with the data `type` that variable can access the receiver method from that types e.g.
+```go
+// main.go
+package main
+
+func main() {
+    cards := deck{"Ace of Diamonds", newCard()}
+    // add new element to array
+    cards = append(cards, "Six of Spades")
+
+    // call receiver from type "deck"
+    cards.print()
+}
+```
