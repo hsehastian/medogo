@@ -136,3 +136,33 @@ func main() {
     cards.print()
 }
 ```
+14. case like `for i, card := range cards` the `range cards` always return 2 values so we need to assign it to variables, but since in our code we not using the `i` Go will complain this un-used variable, to solve this issue we can replace `i` with `_` (underscore) so the will be like `for _, card := range cards`
+15. to use array slice in Go we can do `cards[<position of index> : <range of array>]` in PHP this like `array_slice`
+```go
+//                    0        1         2         3
+fruits := []string{"apple", "banana", "grape", "orange"}
+
+fruits[0:2]     // output: "apple", "banana"
+fruits[:2]      // output: "apple", "banana" this equal to above syntax, this mean slice array from begining of array to range 2
+fruits[2:]      // output: "grape", "orange" this mean slice array from index 2 to end of array
+
+```
+16. a function in Go can return multiple value example like below
+```go
+// main.go
+package main
+
+import "fmt"
+
+func main() {
+    fruits := []string{"apple", "banana", "grape", "orange"}
+
+    sliceOne, sliceTwo := sliceFruit(fruits, 2)
+    fmt.Println(sliceOne)
+    fmt.Println(sliceTwo)
+}
+
+func sliceFruit(f []string, offset int) ([]string, []string){
+    return f[:2], f[2:]
+}
+```
