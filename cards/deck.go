@@ -3,7 +3,10 @@ package main
 import (
 	"fmt"
 	"io/ioutil"
+	"math/rand"
+	"os"
 	"strings"
+	"time"
 )
 
 // create a new type of 'deck'
@@ -47,4 +50,34 @@ func (d deck) toString() string {
 
 func (d deck) saveToFile(filename string) error {
 	return ioutil.WriteFile(filename, []byte(d.toString()), 0666)
+}
+
+func newDeckFromFile(filename string) deck {
+	bs, err := ioutil.ReadFile(filename)
+	if err != nil {
+		fmt.Println("Error:", err)
+		os.Exit(1)
+	}
+
+	// `string(bs)` is type convertion from `[]byte` to `string`
+	s := strings.Split(string(bs), ",")
+	return deck(s)
+}
+
+func (d deck) shuffle() {
+	// below is one of the way how we generate random number in Go everytime we run the program
+	// here we use `time.Now().UnixNano()` as a seed for the rand.NewSource() because UnixNano return int64
+	s := rand.NewSource(time.Now().UnixNano())
+	// after manage to generate new source we assign it to rand.New()
+	r := rand.New(s)
+
+	for i := range d {
+		// use `r` which is "instance"(not sure how we call it) of type Rand
+		np := r.Intn(len(d) - 1)
+
+		// swap the element
+		// d[i] get assign with d[np]
+		// d[np] get assign with d[i]
+		d[i], d[np] = d[np], d[i]
+	}
 }
