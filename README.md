@@ -166,3 +166,32 @@ func sliceFruit(f []string, offset int) ([]string, []string){
     return f[:2], f[2:]
 }
 ```
+17. `[]byte` turn value into slice of byte e.g.
+```go
+// main.go
+package main
+
+import "fmt"
+
+func main() {
+    text := "Hello World"
+    fmt.Println([]byte(text)) // output: [72 101 108 108 111 32 87 111 114 108 100]
+}
+```
+18. Go have `strings` package that can convert slice of string to string, in PHP it same like `explode` function
+19. to use multiple packages in Go we just need to add parentheses after import e.g.
+```go
+// main.go
+package main
+
+import (
+    "fmt"
+    "strings"
+)
+
+func main() {
+    fruits := []string{"apple", "banana", "grape", "orange"}
+    text := strings.Join(fruits, ",")
+    fmt.Println(text)   // output: "apple,banana,grape,orange"
+}
+```
