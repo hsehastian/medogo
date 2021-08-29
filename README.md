@@ -195,3 +195,10 @@ func main() {
     fmt.Println(text)   // output: "apple,banana,grape,orange"
 }
 ```
+20. to make a test in Go, just create a file with format `<filename>_test.go` e.g. `deck_test.go`
+21. to run the test just execute `go test`
+22. when running `go test` then get error `go: cannot find main module, but found` there is 3 solution here
+- execute `go env -w GO111MODULE=auto`
+- execute `cd <path to project> && go mod init <project name>`
+- execute `go test main.go <file for test>.go <file for test>_test.go` e.g. `go test main.go deck.go deck_test.go`
+
