@@ -47,13 +47,13 @@ func main() {
 }
 
 ```
-6. other then `func main()` any other new function should return data type e.g.
+6. function in Go can return data type e.g.
 ```go
 func newCard() string {
     return "Five of Diamonds"
 }
 ```
-7. we can call all function in other go file as long as it using same package name e.g.
+7. we can call a function in other go file as long as it using same package name e.g.
 ```go
 // main.go
 package main
@@ -81,7 +81,7 @@ func printState() {
 8. there is 2 type of array in Go:
     - Array: array with fixed length of list
     - Slice: array that can dynamically added or removed at will, notes: slice must contain element with same data type
-9. `for i, card := range cards` the reason why we use `:=` it because `range cards` will always return 2 value. the first value is the index and the second value is copy of the element at that index
+9. `for i, card := range cards` the reason why we use `:=`(declare and assign) it because `range cards` will always return 2 value. the first value is the index and the second value is copy of the element at that index
 10. we can define a "user-defined" types by extends exisitng types using `type` e.g.
 ```go
 // main.go
@@ -136,7 +136,7 @@ func main() {
     cards.print()
 }
 ```
-14. case like `for i, card := range cards` the `range cards` always return 2 values so we need to assign it to variables, but since in our code we not using the `i` Go will complain this un-used variable, to solve this issue we can replace `i` with `_` (underscore) so the will be like `for _, card := range cards`
+14. case like `for i, card := range cards` the `range cards` always return 2 values so we need to assign it to variables, but since in our code we're not using `i` Go will complain this un-used variable. To solve this issue we can replace `i` with `_` (underscore) this will tell Go to ignore the `i` e.g. `for _, card := range cards`
 15. to use array slice in Go we can do `cards[<position of index> : <range of array>]` in PHP this like `array_slice`
 ```go
 //                    0        1         2         3
