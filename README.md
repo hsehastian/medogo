@@ -15,7 +15,7 @@ Since I come from PHP world so some notes here will be using analogy from PHP â—
 10. go to https://pkg.go.dev/std for more info about Go standard packages
 
 ## Cards
-1. to declare variable we can use `var {variable name} {data type}` e.g. `var card string = "Five of Diamonds"`
+1. to declare variable we can use `var <variable name> <data type>` e.g. `var card string = "Five of Diamonds"`
 2. use `=` to assign value to variable
 3. use `:=` to declare and assign value to variable e.g `card := "Ace of Spades"`, Go can identify the variable data type base on assigned value
 4. It will throw error if use `:=` to the same variable that we already declare before
@@ -82,7 +82,7 @@ func printState() {
     - Array: array with fixed length of list
     - Slice: array that can dynamically added or removed at will, notes: slice must contain element with same data type
 9. `for i, card := range cards` the reason why we use `:=`(declare and assign) it because `range cards` will always return 2 value. the first value is the index and the second value is copy of the element at that index
-10. we can define a "user-defined" types by extends exisitng types using `type` e.g.
+10. we can define a "user-defined" data type by declare `type <type name> <data type>` e.g.
 ```go
 // main.go
 package main
@@ -201,4 +201,13 @@ func main() {
 - execute `go env -w GO111MODULE=auto`
 - execute `cd <path to project> && go mod init <project name>`
 - execute `go test main.go <file for test>.go <file for test>_test.go` e.g. `go test main.go deck.go deck_test.go`
+## Struct
+1. in Go we can create a custom data structure using `struct` e.g.
+```go
+type person struct {
+    firstName string
+    lastName string
+}
+```
+2. 
 
