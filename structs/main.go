@@ -2,20 +2,36 @@ package main
 
 import "fmt"
 
+type contactInfo struct {
+	email   string
+	zipCode int
+}
+
 type person struct {
 	firstName string
 	lastName  string
+	contact   contactInfo
 }
 
 func main() {
-	// this is one of the way to declare type person
-	// the down side for this approach is when someone accidendally swap the firsName and lastName order in type person
-	// then the assigned value become wrong lastName = "Hery", firstName = "Sehastian"
-	hery := person{"Hery", "Sehastian"}
+	jim := person{
+		firstName: "Jim",
+		lastName:  "Party",
+		contact: contactInfo{
+			email:   "jim@gmail.com",
+			zipCode: 94000,
+		},
+	}
 
-	// this is the recommended way
-	p := person{firstName: "Hery", lastName: "Sehastian"}
+	jimPointer := &jim
+	jimPointer.updateName("Jimmy")
+	jim.print()
+}
 
-	fmt.Println(hery)
-	fmt.Println(p)
+func (pointerToPerson *person) updateName(newFirstName string) {
+	(*pointerToPerson).firstName = newFirstName
+}
+
+func (p person) print() {
+	fmt.Printf("%+v", p)
 }

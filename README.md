@@ -209,5 +209,96 @@ type person struct {
     lastName string
 }
 ```
-2. 
+2. there is 3 ways to declare struct in Go
+```go
+// main.go
+package main
+
+import "fmt"
+
+type person struct {
+    firstName   string
+    lastName    string
+}
+
+func main() {
+    // option #1
+    p := person{"John", "Doe"}
+
+    // option #2
+    pp := person{firstName: "John", lastName: "Doe"}
+
+    // option #3
+    var ppp person
+    ppp.firstName: "John"
+    ppp.lastName: "Doe"
+}
+
+```
+3. we can call link struct inside another struct(nested) e.g.
+```go
+// main.go
+package main
+
+import "fmt"
+
+type contactInfo struct {
+    email   string
+}
+
+type person struct {
+    firstName   string
+    lastName    string
+    contactInfo
+}
+
+func main() {
+    p := person{
+        firstName: "John",
+        lastName: "Doe",
+        contactInfo: contactInfo{
+            email: "john@mail.com",
+        },
+    }
+}
+```
+4. operator `&` and `*` is use in Go pointer
+5. operator `&` is used tell Go that we want the variable memory address e.g.
+```go
+// main.go
+package main
+
+import "fmt"
+
+func main() {
+    x := 10
+    y := &x
+
+    y = 0
+
+    fmt.Println(x) //   output: 10
+    fmt.Println(y) //   output:0xc000a410
+}
+```
+6. operator `*` is used tell Go that we want the value from the pointer e.g.
+```go
+// main.go
+package main
+
+import "fmt"
+
+func main() {
+    x := 10
+    y := &x
+
+    fmt.Println(x) //   output: 10
+
+    // by doing this it means that we want pointer y which is poiting to variable x change the value to 0
+    *y = 0
+
+    fmt.Println(x) //   output: 0
+}
+```
+7. but if we see a receiver function like this `func (p *person) update()` an operator `*` in front of data type (we call it type description) this mean that this receiver function can only be called by variable that assigned with pointer for data type person
+
 
