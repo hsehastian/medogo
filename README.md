@@ -299,6 +299,43 @@ func main() {
     fmt.Println(x) //   output: 0
 }
 ```
-7. but if we see a receiver function like this `func (p *person) update()` an operator `*` in front of data type (we call it type description) this mean that this receiver function can only be called by variable that assigned with pointer for data type person
+7. but if we see a receiver function like this `func (p *person) update()` an operator `*` in front of data type (we call it type description) this mean that this receiver function can be called by variable that assigned with pointer for data type person or the variable it self
+```go
+// main.go
+package main
 
+import "fmt"
+
+type person struct {
+    firstName   string
+    lastName    string
+}
+
+func main() {
+    p := person{
+        firstName: "John",
+        lastName: "Doe",
+    }
+
+    // option #1 : still valid
+    pPointer := &p
+    pPointer.update("Mark")
+    p.print()
+
+    // option #2 : recommended
+    p.update("Mark")
+    p.print()
+
+}
+
+// as long as the receiver function using pointer person (*person),
+// Go will know that in this receiver function we want to access the pointer for data type person
+func (p *person) update(n string) {
+    (*p).firstName = n
+}
+
+func (p person) print() {
+	fmt.Printf("%+v", p)
+}
+```
 
