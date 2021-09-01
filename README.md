@@ -338,4 +338,33 @@ func (p person) print() {
 	fmt.Printf("%+v", p)
 }
 ```
+8. gotchas with pointer, see example below
+```go
+// main.go
+package main
 
+import "fmt"
+
+func main() {
+    s := []string{"Hi", "There", "How", "Are", "You"}
+
+    updateSlice(s)
+
+    fmt.Println(s)  // output: {"Holla", "There", "How", "Are", "You"}
+
+    // as you can see above the value of the slice changed, but as we learn from notes #7
+    // to update the value we need to passing the pointer
+    // the reason why this work for the slice it because in Go create Array and Slice data in the memory
+    // #1: it store the slice data e.g. pointer to the head, capacity of the current slice, length of the slice
+    // #2: it store the Array value
+    // when we pass the slice to the `updateSlice` function Go will copy slice data only (#1) but not the Array value,
+    // the copy of the slice data still pointing to the Array value thats why `updateSlice` can update the element value (pass by reference)
+}
+
+func updateSlice(s []string) {
+    s[0] = "Holla"
+}
+```
+9. to differentiate which data type that we need to handle with pointer and which one is not, check the list below.
+- Value Type: a data type when you need to update the value in the function you need to pass it as a pointer, it consists of: int, float, string, bool, structs
+- Reference Type: a data type when you need to update the value in the function you just update it directly without need the pointer, it consists of: slices, maps, channels, pointers, functions
