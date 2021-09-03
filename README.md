@@ -368,3 +368,30 @@ func updateSlice(s []string) {
 9. to differentiate which data type that we need to handle with pointer and which one is not, check the list below.
 - Value Type: a data type when you need to update the value in the function you need to pass it as a pointer, it consists of: int, float, string, bool, structs
 - Reference Type: a data type when you need to update the value in the function you just update it directly without need the pointer, it consists of: slices, maps, channels, pointers, functions
+## Map
+1. to do `map` in Go we can do `map[<data type>]<dada type>` e.g. `map[string]string`
+2. there is 3 way to declare map in Go e.g.
+```go
+// main.go
+package main
+
+import "fmt"
+
+func main() {
+    // option #1 use var
+    var colors map[string]string
+    colors["red"] = "#ff0000"
+
+    // option #2 use make
+    colors := make(map[string]string)
+    colors["red"] = "#ff0000"
+
+    // option #3 declare and assign
+    colors := map[string]string{
+        "red": "#ff0000",
+    }
+
+    fmt.Println(colors)
+}
+```
+3. to delete key in map we can do `delete(<map>, <key>)` e.g. `delete(colors, "red")`
