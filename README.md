@@ -395,3 +395,52 @@ func main() {
 }
 ```
 3. to delete key in map we can do `delete(<map>, <key>)` e.g. `delete(colors, "red")`
+## Interface
+1. in Go we can create interface data type using `interface` e.g.
+```go
+type bot interface {
+    getGreeting() string
+}
+```
+2. `interface` in Go have different behaviour compared to PHP or any other oop language, usually in oop the class need to `implements` the interface so the class can have a same function that defined by interface but interface in Go is more like we add the `type` as a member of `interface` and as long as the `type` have receiver function use same function name that defined in `interface` also as long as it in the same package it considered already implement the `interface` (°ロ°)!
+```go
+// main.go
+package main
+
+import "fmt"
+
+type car interface {
+    hasGas() bool
+}
+
+type honda struct{}
+type toyota struct{}
+type ducati struct{}
+
+func main() {
+
+    h := honda{}
+    t := toyota{}
+    d := ducati{}
+
+    startEngine(h)  // this is valid because type `honda` have receiver function that implement interface `car`
+    startEngine(t)  // this is valid because type `toyota` have receiver function that implement interface `car`
+    startEngine(d)  // this is error because type `ducati` dont have receiver function that implement interface `car`
+}
+
+func startEngine(c car) string {
+    if c.hasGas() {
+        fmt.Println("Engine started!")
+    }else {
+        fmt.Println("Engine die!")
+    }
+}
+// honda receiver function
+func (honda) hasGas() bool {
+    return true
+}
+// toyota receiver function
+func (toyota) hasGas() bool {
+    return false
+}
+```
