@@ -446,3 +446,5 @@ func (toyota) hasGas() bool {
 ```
 ### Reader Interface
 1. I dont know what the heck is this why it so complicated (╯°□°)╯︵ ┻━┻ (after I understand more I will add more notes here)
+### Writer Interface
+1. ┻━┻︵ \(°□°)/ ︵ ┻━┻
