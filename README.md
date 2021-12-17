@@ -444,7 +444,37 @@ func (toyota) hasGas() bool {
     return false
 }
 ```
-### Reader Interface
-1. I dont know what the heck is this why it so complicated (╯°□°)╯︵ ┻━┻ (after I understand more I will add more notes here)
-### Writer Interface
-1. ┻━┻︵ \(°□°)/ ︵ ┻━┻
+## Go Routines
+1. to use go routine we can just add keyword `go` before the function that cause blocking call e.g. `go functionName()`
+2. everytime we use go routine Go will spawn a "Child routine" executing the blocking call
+3. Go routine is managed by Go Scheduler
+4. if we only have 1 core CPU, Go Scheduler only run 1 Go routine at the time, even when we have multiple Go routine it only been executed 1 by 1
+5. we need to change Go setting(GOMAXPROCS) if we want to utilize multi core CPU, but since Go 1.5 by default set to the number of cores available
+6. Problem with the go routine is when we spawn many "Child routine" the main routine don't know when the "Child routine" will finish their job, so when there is no more go routine that need to be executed the main routine will exit the execution. To solve this issue we need to implement "Channels(`chan`)"
+7. to use channel we need to define the type of data for the channel
+```go
+c := make(chan string)
+```
+8. the channel need to be passed to the function that called by go routine
+9. to send message to channel we can use syntax `c <- <value we want to pass>` e.g. `c <- "OK"`
+10. to receive message to channel we also use same `<- c` e.g. `fmt.Println(<- c)` or `variableName <- c`
+```go
+// main.go
+package main
+
+func main() {
+    ch := make(chan string)
+
+    go fetchData(ch)
+
+    fmt.Println(<-ch) // blocking operation also
+}
+
+func fetchData(ch chan string) {
+    // blocking operation
+    ch <- "OK"
+    // end here
+}
+```
+11. when we want to receive value from channel, it considered as blocking operation because the main routine will keep alive until receive message from channel
+
